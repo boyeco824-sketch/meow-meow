@@ -1,0 +1,992 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>Happy 14th Birthday Parniti! 🎂✨</title>
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      -webkit-tap-highlight-color: transparent;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    }
+
+    body {
+      background: radial-gradient(circle at 50% 20%, #ffeaf1 0%, #ffc6d9 50%, #f79cb8 100%);
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      background-attachment: fixed;
+      min-height: 100vh;
+      min-height: 100dvh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 16px;
+      position: relative;
+      overflow-x: hidden;
+      transition: background 0.6s ease-in-out;
+    }
+
+    /* CUSTOM IMAGE BACKGROUNDS FOR STEP 3 (SECOND LAST) & STEP 4 (LAST) */
+    body.bg-step3 {
+      background: linear-gradient(rgba(255, 240, 245, 0.45), rgba(255, 214, 224, 0.55)),
+                  url("https://share.google/49wElYz32XnCA0RAb") center/cover no-repeat fixed !important;
+    }
+
+    body.bg-step4 {
+      background: linear-gradient(rgba(255, 230, 240, 0.4), rgba(244, 114, 182, 0.45)),
+                  url("https://share.google/GU445WxBg8f8Ggvpt") center/cover no-repeat fixed !important;
+    }
+
+    /* Ambient Canva-style drifting sticker elements */
+    .canva-floating-sticker {
+      position: fixed;
+      font-size: 28px;
+      user-select: none;
+      pointer-events: none;
+      animation: canvaFloat 8s infinite ease-in-out;
+      z-index: 1;
+      filter: drop-shadow(0 6px 14px rgba(255, 75, 114, 0.35));
+    }
+
+    @keyframes canvaFloat {
+      0% { transform: translateY(105vh) rotate(-15deg) scale(0.8); opacity: 0; }
+      15% { opacity: 1; }
+      50% { transform: translateY(50vh) rotate(15deg) scale(1.1); }
+      85% { opacity: 1; }
+      100% { transform: translateY(-15vh) rotate(35deg) scale(0.9); opacity: 0; }
+    }
+
+    /* Canva Glow Button */
+    .music-btn {
+      position: fixed;
+      top: 16px;
+      right: 16px;
+      background: #ffffff;
+      border: 2px solid #ff4b72;
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 1.4rem;
+      cursor: pointer;
+      box-shadow: 0 0 20px rgba(255, 75, 114, 0.4);
+      z-index: 100;
+      animation: canvaBreathe 2s infinite ease-in-out;
+    }
+    @keyframes canvaBreathe {
+      0%, 100% { transform: scale(1) rotate(0deg); box-shadow: 0 0 10px rgba(255,75,114,0.3); }
+      50% { transform: scale(1.12) rotate(10deg); box-shadow: 0 0 24px rgba(255,75,114,0.6); }
+    }
+
+    .screen-wrapper {
+      position: relative;
+      width: 100%;
+      max-width: 410px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 10;
+    }
+
+    /* Swaying Balloon Clusters with Canva Depth */
+    .balloon-cluster {
+      position: absolute;
+      top: -42px;
+      z-index: 15;
+      pointer-events: none;
+      filter: drop-shadow(0 8px 18px rgba(240, 100, 140, 0.35));
+    }
+    .balloon-cluster.left { left: -26px; animation: swayLeft 3.5s ease-in-out infinite alternate; }
+    .balloon-cluster.right { right: -26px; animation: swayRight 4s ease-in-out infinite alternate; }
+
+    @keyframes swayLeft {
+      0% { transform: rotate(-6deg) translateY(0); }
+      100% { transform: rotate(5deg) translateY(-14px); }
+    }
+    @keyframes swayRight {
+      0% { transform: rotate(6deg) translateY(0); }
+      100% { transform: rotate(-5deg) translateY(-14px); }
+    }
+
+    /* Card Design with Glassmorphic Canva Aesthetic */
+    .card {
+      background: rgba(255, 255, 255, 0.96);
+      backdrop-filter: blur(14px);
+      border-radius: 36px;
+      padding: 22px 18px 28px;
+      box-shadow: 0 24px 60px rgba(220, 80, 120, 0.32), 0 0 0 4px rgba(255, 255, 255, 0.9);
+      width: 100%;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+      z-index: 5;
+    }
+
+    /* Animated Gold Sparkle Ribbon */
+    .canva-shimmer-sparkle {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      top: 0;
+      left: 0;
+      pointer-events: none;
+      background: radial-gradient(circle at 80% 20%, rgba(255, 215, 0, 0.15) 0%, transparent 40%),
+                  radial-gradient(circle at 20% 80%, rgba(255, 105, 180, 0.12) 0%, transparent 40%);
+    }
+
+    .bunting-svg {
+      width: 100%;
+      height: 42px;
+      margin-top: -8px;
+      margin-bottom: 4px;
+      animation: garlandSwing 4s infinite ease-in-out alternate;
+      transform-origin: top center;
+    }
+    @keyframes garlandSwing {
+      0% { transform: skewX(-2.5deg); }
+      100% { transform: skewX(2.5deg); }
+    }
+
+    .step {
+      display: none;
+      animation: canvaStickerPop 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+    }
+    .step.active { display: block; }
+
+    @keyframes canvaStickerPop {
+      0% { opacity: 0; transform: scale(0.82) translateY(24px); }
+      70% { transform: scale(1.04) translateY(-4px); }
+      100% { opacity: 1; transform: scale(1) translateY(0); }
+    }
+
+    /* Canva-style Floating Badge */
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: linear-gradient(135deg, #ffe3ec, #ffd1df);
+      color: #ff2a5f;
+      font-weight: 800;
+      font-size: 0.8rem;
+      padding: 6px 16px;
+      border-radius: 50px;
+      margin-bottom: 10px;
+      letter-spacing: 0.6px;
+      box-shadow: 0 4px 12px rgba(255, 42, 95, 0.2);
+      animation: badgePulse 2s infinite alternate ease-in-out;
+    }
+    @keyframes badgePulse {
+      0% { transform: scale(1); filter: brightness(1); }
+      100% { transform: scale(1.05); filter: brightness(1.08); }
+    }
+
+    h2 {
+      color: #1a1a24;
+      font-size: 1.5rem;
+      font-weight: 800;
+      margin-bottom: 6px;
+      letter-spacing: -0.4px;
+    }
+
+    .subtext {
+      color: #555;
+      font-size: 0.94rem;
+      line-height: 1.5;
+      margin-bottom: 14px;
+    }
+
+    /* Canva Sticker Rows with Independent Motion */
+    .big-stickers-row {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 14px;
+      margin: 8px 0 14px;
+      user-select: none;
+    }
+
+    .canva-pop-sticker {
+      font-size: 2.8rem;
+      display: inline-block;
+      filter: drop-shadow(0 8px 16px rgba(255, 100, 150, 0.35));
+      animation: canvaStickerFloat 2.2s infinite ease-in-out alternate;
+    }
+    .canva-pop-sticker.del-1 { animation-delay: 0.25s; }
+    .canva-pop-sticker.del-2 { animation-delay: 0.5s; }
+    .canva-pop-sticker.del-3 { animation-delay: 0.75s; }
+    .canva-pop-sticker.del-4 { animation-delay: 1s; }
+
+    @keyframes canvaStickerFloat {
+      0% { transform: scale(0.92) rotate(-8deg) translateY(3px); }
+      50% { transform: scale(1.08) rotate(2deg) translateY(-8px); }
+      100% { transform: scale(1.16) rotate(10deg) translateY(-3px); }
+    }
+
+    .stage-illustration {
+      background: linear-gradient(180deg, rgba(255, 245, 248, 0.92) 0%, rgba(255, 233, 240, 0.92) 100%);
+      border: 2px dashed #fbbdce;
+      border-radius: 26px;
+      padding: 14px 6px 10px;
+      margin: 10px 0 14px;
+      position: relative;
+      overflow: hidden;
+      box-shadow: inset 0 2px 10px rgba(255, 174, 195, 0.2);
+    }
+
+    .characters-row {
+      display: flex;
+      justify-content: space-around;
+      align-items: flex-end;
+      min-height: 135px;
+    }
+
+    /* Pet SVG animations */
+    .pet-svg {
+      width: 70px;
+      height: 80px;
+      transition: transform 0.2s ease;
+    }
+    .pet-svg.cat { animation: wiggleCat 2.4s ease-in-out infinite alternate; }
+    .pet-svg.dog { animation: wiggleDog 2s ease-in-out infinite alternate; }
+
+    @keyframes wiggleCat {
+      0% { transform: rotate(-5deg); }
+      100% { transform: rotate(6deg) translateY(-4px); }
+    }
+    @keyframes wiggleDog {
+      0% { transform: translateY(0) rotate(0); }
+      50% { transform: translateY(-7px) rotate(-4deg); }
+      100% { transform: translateY(-2px) rotate(4deg); }
+    }
+
+    .cake-center {
+      position: relative;
+      width: 130px;
+      height: 115px;
+    }
+
+    /* Candle Flames Animation */
+    .candle-flame {
+      animation: flickerCanva 0.4s infinite alternate ease-in-out;
+      transform-origin: center bottom;
+      transition: all 0.4s ease;
+    }
+    .candle-flame:nth-child(2) { animation-duration: 0.32s; }
+    .candle-flame:nth-child(3) { animation-duration: 0.48s; }
+
+    @keyframes flickerCanva {
+      0% { transform: scale(1) rotate(-3deg); opacity: 0.95; filter: drop-shadow(0 0 6px #ffbe0b); }
+      50% { transform: scale(1.22) rotate(4deg); opacity: 1; filter: drop-shadow(0 0 10px #ff0055); }
+      100% { transform: scale(0.88) rotate(-1deg); opacity: 0.9; }
+    }
+
+    .smoke-puff {
+      opacity: 0;
+      animation: smokeRise 1.4s ease-out forwards;
+      transform-origin: center bottom;
+    }
+    @keyframes smokeRise {
+      0% { opacity: 0.8; transform: scale(0.4) translateY(0); }
+      100% { opacity: 0; transform: scale(1.6) translateY(-28px); }
+    }
+
+    .blow-candle-btn {
+      background: linear-gradient(135deg, #ffffff, #fff0f4);
+      border: 2px solid #ff5277;
+      color: #ff2a5f;
+      font-size: 0.84rem;
+      font-weight: 800;
+      padding: 7px 18px;
+      border-radius: 50px;
+      margin-top: 8px;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      box-shadow: 0 4px 14px rgba(255, 82, 119, 0.28);
+      animation: canvaPulse 1.6s infinite ease-in-out;
+    }
+    @keyframes canvaPulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.06); }
+    }
+
+    .btn-group {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      width: 100%;
+      position: relative;
+    }
+
+    /* Canva Gradient Motion Button */
+    .main-pink-btn {
+      width: 100%;
+      min-height: 52px;
+      background: linear-gradient(90deg, #ff708f 0%, #ff3b68 100%);
+      color: white;
+      border: none;
+      padding: 13px 20px;
+      font-size: 1.05rem;
+      font-weight: 800;
+      border-radius: 20px;
+      cursor: pointer;
+      box-shadow: 0 8px 24px rgba(255, 59, 104, 0.42);
+      touch-action: manipulation;
+      transition: transform 0.15s ease, box-shadow 0.15s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      position: relative;
+      overflow: hidden;
+    }
+    .main-pink-btn::after {
+      content: "";
+      position: absolute;
+      top: -50%;
+      left: -60%;
+      width: 40%;
+      height: 200%;
+      background: rgba(255, 255, 255, 0.4);
+      transform: rotate(25deg);
+      animation: buttonShine 3.5s infinite linear;
+    }
+    @keyframes buttonShine {
+      0% { left: -60%; }
+      30%, 100% { left: 140%; }
+    }
+    .main-pink-btn:active {
+      transform: scale(0.96);
+    }
+
+    .secondary-btn {
+      background: #f7f7fa;
+      color: #555;
+      box-shadow: none;
+      border: 1px solid #eaeaea;
+    }
+    .secondary-btn::after { display: none; }
+    .secondary-btn:active {
+      background: #ededf2;
+    }
+
+    #runawayBtn {
+      position: relative;
+      transition: transform 0.18s cubic-bezier(0.25, 1, 0.5, 1);
+      will-change: transform;
+    }
+
+    .pass-container {
+      margin: 10px 0 12px;
+      position: relative;
+    }
+    .pass-input {
+      width: 100%;
+      height: 50px;
+      border: 2px solid #ffccd8;
+      background: #fffafd;
+      border-radius: 18px;
+      padding: 10px 16px 10px 42px;
+      font-size: 1.05rem;
+      color: #333;
+      outline: none;
+      transition: border-color 0.2s ease, box-shadow 0.2s ease;
+      letter-spacing: 2px;
+      text-align: center;
+    }
+    .pass-input:focus {
+      border-color: #ff3b68;
+      box-shadow: 0 0 0 4px rgba(255, 59, 104, 0.22);
+    }
+    .pass-icon {
+      position: absolute;
+      left: 15px;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 1.2rem;
+      pointer-events: none;
+    }
+
+    .hint-link {
+      color: #888;
+      font-size: 0.82rem;
+      text-decoration: none;
+      margin-top: 6px;
+      display: inline-block;
+      cursor: pointer;
+    }
+
+    /* Photo Frame with Animated Canva Halo Gradient */
+    .photo-wrapper {
+      position: relative;
+      display: inline-block;
+      margin-bottom: 4px;
+    }
+
+    .bestie-photo-frame {
+      width: 140px;
+      height: 140px;
+      margin: 14px auto 4px;
+      border-radius: 50%;
+      padding: 5px;
+      background: linear-gradient(135deg, #ff3b68 0%, #ff8da6 50%, #ffd166 100%);
+      background-size: 200% 200%;
+      animation: frameGradient 3s infinite alternate;
+      box-shadow: 0 12px 34px rgba(255, 59, 104, 0.45);
+      cursor: pointer;
+      position: relative;
+    }
+    @keyframes frameGradient {
+      0% { background-position: 0% 50%; }
+      100% { background-position: 100% 50%; }
+    }
+    .bestie-photo-frame img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 50%;
+      border: 3.5px solid #fff;
+    }
+
+    .photo-tip {
+      font-size: 0.72rem;
+      color: #999;
+      margin-bottom: 8px;
+    }
+
+    /* 3D-effect Canva Floating Corner Stickers */
+    .corner-sticker {
+      position: absolute;
+      user-select: none;
+      filter: drop-shadow(0 6px 14px rgba(0,0,0,0.22));
+      animation: canvaStickerFloat 2s infinite ease-in-out alternate;
+    }
+    .corner-cap { top: -20px; left: 50%; transform: translateX(-50%); font-size: 3.2rem; }
+    .corner-choc { bottom: -6px; left: -26px; font-size: 2.6rem; animation-delay: 0.3s; }
+    .corner-icecream { bottom: -6px; right: -26px; font-size: 2.6rem; animation-delay: 0.6s; }
+    .corner-gift { top: 22px; right: -26px; font-size: 2.4rem; animation-delay: 0.5s; }
+    .corner-balloon { top: 22px; left: -26px; font-size: 2.4rem; animation-delay: 0.8s; }
+
+    /* Interactive Surprise Unboxing */
+    .surprise-box-wrapper {
+      margin: 10px auto;
+      cursor: pointer;
+      display: inline-block;
+    }
+    .gift-box-anim {
+      font-size: 3.4rem;
+      display: inline-block;
+      animation: canvaWobble 1.2s infinite ease-in-out;
+      filter: drop-shadow(0 10px 18px rgba(255, 82, 119, 0.4));
+    }
+    @keyframes canvaWobble {
+      0%, 100% { transform: scale(1) rotate(0); }
+      25% { transform: scale(1.12) rotate(-14deg); }
+      75% { transform: scale(1.12) rotate(14deg); }
+    }
+
+    .tease-note-card {
+      background: rgba(255, 248, 250, 0.95);
+      border: 1.5px dashed #ffaec3;
+      border-radius: 22px;
+      padding: 14px 16px;
+      margin: 12px 0 16px;
+      text-align: left;
+      font-size: 0.89rem;
+      line-height: 1.55;
+      color: #444;
+      box-shadow: 0 6px 18px rgba(255, 174, 195, 0.22);
+    }
+    .tease-note-card::before {
+      content: "💌 Special Bestie Note:";
+      display: block;
+      font-weight: 800;
+      color: #ff3366;
+      font-size: 0.8rem;
+      margin-bottom: 5px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    /* Screen Tap Particle Bubbles */
+    .tap-bubble {
+      position: fixed;
+      font-size: 30px;
+      pointer-events: none;
+      animation: popOut 0.85s ease-out forwards;
+      z-index: 9999;
+    }
+    @keyframes popOut {
+      0% { transform: translate(-50%, -50%) scale(0.3); opacity: 1; }
+      100% { transform: translate(-50%, -120px) scale(1.6) rotate(25deg); opacity: 0; }
+    }
+  </style>
+</head>
+<body onclick="spawnTapParticle(event)">
+
+<div class="canva-shimmer-sparkle"></div>
+
+<!-- Canva Drifting 3D Element Stickers -->
+<div class="canva-floating-sticker" style="left: 4%; animation-delay: 0s;">🎈</div>
+<div class="canva-floating-sticker" style="left: 14%; animation-delay: 2.8s;">🧁</div>
+<div class="canva-floating-sticker" style="left: 26%; animation-delay: 1.4s;">✨</div>
+<div class="canva-floating-sticker" style="left: 42%; animation-delay: 4.6s;">🍬</div>
+<div class="canva-floating-sticker" style="left: 60%; animation-delay: 2s;">🍫</div>
+<div class="canva-floating-sticker" style="left: 74%; animation-delay: 5.2s;">🍦</div>
+<div class="canva-floating-sticker" style="left: 86%; animation-delay: 0.8s;">🎁</div>
+<div class="canva-floating-sticker" style="left: 93%; animation-delay: 3.6s;">🥳</div>
+
+<!-- Music Toggle Button -->
+<button class="music-btn" id="musicToggleBtn" onclick="toggleAudio()">🎵</button>
+
+<div class="screen-wrapper">
+
+  <!-- Left Balloon Cluster -->
+  <svg class="balloon-cluster left" width="70" height="120" viewBox="0 0 65 110" fill="none">
+    <path d="M18 60 Q26 85 30 110 M38 52 Q34 85 30 110 M28 40 Q29 75 30 110" stroke="#f0a5b8" stroke-width="1.3"/>
+    <ellipse cx="18" cy="30" rx="14" ry="18" fill="#e2d2f9"/>
+    <ellipse cx="38" cy="24" rx="15" ry="19" fill="#fef1b8"/>
+    <ellipse cx="26" cy="52" rx="13" ry="17" fill="#ffccd8"/>
+  </svg>
+
+  <!-- Right Balloon Cluster -->
+  <svg class="balloon-cluster right" width="70" height="120" viewBox="0 0 65 110" fill="none">
+    <path d="M22 45 Q28 80 32 110 M44 58 Q36 85 32 110 M34 32 Q33 70 32 110" stroke="#f0a5b8" stroke-width="1.3"/>
+    <ellipse cx="40" cy="22" rx="14" ry="18" fill="#f8e09e"/>
+    <ellipse cx="20" cy="38" rx="15" ry="19" fill="#d0eaf8"/>
+    <ellipse cx="40" cy="54" rx="13" ry="17" fill="#fed0dc"/>
+  </svg>
+
+  <div class="card">
+
+    <!-- Top Garland Banner -->
+    <svg class="bunting-svg" viewBox="0 0 300 40">
+      <path d="M0,8 Q150,26 300,8" fill="none" stroke="#eec8d5" stroke-width="1.5" />
+      <polygon points="15,9 35,9 25,27" fill="#bfe1f6" />
+      <polygon points="45,12 65,12 55,30" fill="#fed4e1" />
+      <polygon points="75,14 95,14 85,32" fill="#d9cbf6" />
+      <polygon points="105,16 125,16 115,34" fill="#feecb4" />
+      <polygon points="135,17 155,17 145,35" fill="#cbebd3" />
+      <polygon points="165,17 185,17 175,35" fill="#fecce4" />
+      <polygon points="195,16 215,16 205,34" fill="#bfe1f6" />
+      <polygon points="225,14 245,14 235,32" fill="#d9cbf6" />
+      <polygon points="255,12 275,12 265,30" fill="#feecb4" />
+    </svg>
+
+    <!-- STEP 0 -->
+    <div class="step active" id="step0">
+      <h2>Identity Verification</h2>
+      <span class="badge">✨ Security Alert: Best friend's birthday! 🤫</span>
+      <div class="big-stickers-row" style="margin: 6px 0 10px;">
+        <span class="canva-pop-sticker">🎈</span>
+        <span class="canva-pop-sticker del-1">🎂</span>
+        <span class="canva-pop-sticker del-2">🎁</span>
+        <span class="canva-pop-sticker del-3">🎉</span>
+      </div>
+      <p class="subtext">Our system detected that <strong>"i am parniti_14"</strong> is officially turning <strong>16</strong> today! Complete the test to unlock your surprise.</p>
+      <div class="btn-group">
+        <button class="main-pink-btn" onclick="startVerification()">Let's Verify! 🚀</button>
+      </div>
+    </div>
+
+    <!-- STEP 1 -->
+    <div class="step" id="step1">
+      <h2>Question 1 of 2</h2>
+      <span class="badge">✨ Be completely truthful... 🧠</span>
+
+      <div class="big-stickers-row">
+        <span class="canva-pop-sticker">🍫</span>
+        <span class="canva-pop-sticker del-1">🥳</span>
+        <span class="canva-pop-sticker del-2">🍦</span>
+        <span class="canva-pop-sticker del-3">🎈</span>
+      </div>
+
+      <p class="subtext">Who is officially the smarter, cooler, and better-looking best friend in this friendship?</p>
+      <div class="btn-group">
+        <button class="main-pink-btn" onclick="nextStep(2)">Obviously Shubham 😌</button>
+        <button class="main-pink-btn secondary-btn" id="runawayBtn"
+                ontouchstart="dodgeButton(event, this)"
+                onmouseover="dodgeButton(event, this)"
+                onclick="dodgeButton(event, this)">Me (Parniti)! 💁‍♀️</button>
+      </div>
+    </div>
+
+    <!-- STEP 2 -->
+    <div class="step" id="step2">
+      <h2>Question 2 of 2</h2>
+      <span class="badge">✨ Height Audit 📏</span>
+
+      <div class="big-stickers-row">
+        <span class="canva-pop-sticker">🎈</span>
+        <span class="canva-pop-sticker del-1">🎉</span>
+        <span class="canva-pop-sticker del-2">🍫</span>
+        <span class="canva-pop-sticker del-3">🍨</span>
+      </div>
+
+      <p class="subtext"> hamare headquator se message aaya hn ki You're officially 16 now, BHAJIYA... but are we ever growing taller than <strong>5'2 inch"</strong>? 😂</p>
+      <div class="btn-group">
+        <button class="main-pink-btn" onclick="nextStep(3)">5'2" and fabulous! 💅</button>
+        <button class="main-pink-btn secondary-btn" onclick="nextStep(3)"> bornvita ka side effect hua hn! 👶</button>
+      </div>
+    </div>
+
+    <!-- STEP 3 (SECOND LAST - USES YOUR FIRST LINK IN BACKGROUND) -->
+    <div class="step" id="step3">
+      <h2>Final Test</h2>
+      <span class="badge">✨ Security Code Required 🔒</span>
+
+      <div class="big-stickers-row" style="margin: 4px 0 6px;">
+        <span class="canva-pop-sticker">🍦</span>
+        <span class="canva-pop-sticker del-1">🍫</span>
+        <span class="canva-pop-sticker del-2">🎈</span>
+        <span class="canva-pop-sticker del-3">🥳</span>
+      </div>
+
+      <div class="stage-illustration">
+        <div class="characters-row">
+
+          <!-- Cat SVG -->
+          <svg class="pet-svg cat" viewBox="0 0 80 90">
+            <polygon points="12,18 24,35 10,40" fill="#2d2d3a" />
+            <polygon points="14,21 21,34 12,37" fill="#f8a5c2" />
+            <polygon points="48,18 36,35 50,40" fill="#2d2d3a" />
+            <polygon points="46,21 39,34 48,37" fill="#f8a5c2" />
+            <ellipse cx="30" cy="42" rx="20" ry="18" fill="#2d2d3a"/>
+            <ellipse cx="30" cy="48" rx="10" ry="12" fill="#ffffff"/>
+            <circle cx="22" cy="40" r="3.5" fill="#f6e58d"/>
+            <circle cx="22" cy="40" r="1.8" fill="#1e1e24"/>
+            <circle cx="38" cy="40" r="3.5" fill="#f6e58d"/>
+            <circle cx="38" cy="40" r="1.8" fill="#1e1e24"/>
+            <polygon points="30,44 28,47 32,47" fill="#f8a5c2"/>
+            <line x1="16" y1="46" x2="6" y2="44" stroke="#888" stroke-width="1.2"/>
+            <line x1="16" y1="49" x2="7" y2="50" stroke="#888" stroke-width="1.2"/>
+            <line x1="44" y1="46" x2="54" y2="44" stroke="#888" stroke-width="1.2"/>
+            <line x1="44" y1="49" x2="53" y2="50" stroke="#888" stroke-width="1.2"/>
+            <ellipse cx="30" cy="74" rx="18" ry="16" fill="#2d2d3a"/>
+            <ellipse cx="30" cy="72" rx="9" ry="12" fill="#ffffff"/>
+            <path d="M46 75 C60 75 62 55 58 50" stroke="#2d2d3a" stroke-width="4.5" stroke-linecap="round" fill="none"/>
+          </svg>
+
+          <!-- Cake with Candles -->
+          <div class="cake-center">
+            <svg viewBox="0 0 140 120" style="width: 100%; height: 100%;">
+              <ellipse cx="70" cy="100" rx="55" ry="15" fill="#f8d6e2" stroke="#4a3f44" stroke-width="2"/>
+              <rect x="15" y="78" width="110" height="22" fill="#fff5f8"/>
+              <path d="M15,78 Q25,86 35,78 Q45,86 55,78 Q65,86 75,78 Q85,86 95,78 Q105,86 115,78 Q125,86 125,78 L125,100 L15,100 Z" fill="#ffe1ec"/>
+              <line x1="15" y1="78" x2="15" y2="100" stroke="#4a3f44" stroke-width="2"/>
+              <line x1="125" y1="78" x2="125" y2="100" stroke="#4a3f44" stroke-width="2"/>
+
+              <ellipse cx="70" cy="78" rx="42" ry="12" fill="#ffffff" stroke="#4a3f44" stroke-width="2"/>
+              <rect x="28" y="58" width="84" height="20" fill="#e8f4fc"/>
+              <path d="M28,58 Q38,66 48,58 Q58,66 68,58 Q78,66 88,58 Q98,66 108,58 Q112,66 112,58 L112,78 L28,78 Z" fill="#cbe7f8"/>
+              <line x1="28" y1="58" x2="28" y2="78" stroke="#4a3f44" stroke-width="2"/>
+              <line x1="112" y1="58" x2="112" y2="78" stroke="#4a3f44" stroke-width="2"/>
+
+              <ellipse cx="70" cy="58" rx="42" ry="11" fill="#fff9fb" stroke="#4a3f44" stroke-width="2"/>
+
+              <rect x="46" y="38" width="5" height="18" fill="#ffd166" rx="2" stroke="#4a3f44" stroke-width="1"/>
+              <rect x="67" y="32" width="6" height="24" fill="#ff70a6" rx="2" stroke="#4a3f44" stroke-width="1"/>
+              <rect x="89" y="38" width="5" height="18" fill="#70d6ff" rx="2" stroke="#4a3f44" stroke-width="1"/>
+
+              <ellipse class="candle-flame flame-el" cx="48.5" cy="33" rx="3.5" ry="6" fill="#ff9f1c"/>
+              <ellipse class="candle-flame flame-el" cx="70" cy="26" rx="4.5" ry="7.5" fill="#ffbe0b"/>
+              <ellipse class="candle-flame flame-el" cx="91.5" cy="33" rx="3.5" ry="6" fill="#ff9f1c"/>
+
+              <circle id="smoke1" class="smoke-puff" cx="48.5" cy="30" r="5" fill="#bbb" style="display:none;"/>
+              <circle id="smoke2" class="smoke-puff" cx="70" cy="22" r="6" fill="#bbb" style="display:none;"/>
+              <circle id="smoke3" class="smoke-puff" cx="91.5" cy="30" r="5" fill="#bbb" style="display:none;"/>
+            </svg>
+          </div>
+
+          <!-- Dog SVG -->
+          <svg class="pet-svg dog" viewBox="0 0 80 90">
+            <ellipse cx="16" cy="40" rx="7" ry="16" fill="#d99b58" transform="rotate(15 16 40)"/>
+            <ellipse cx="64" cy="40" rx="7" ry="16" fill="#d99b58" transform="rotate(-15 64 40)"/>
+            <ellipse cx="40" cy="38" rx="21" ry="18" fill="#f3be7a"/>
+            <ellipse cx="40" cy="45" rx="11" ry="9" fill="#fce4be"/>
+            <ellipse cx="40" cy="41" rx="4" ry="2.5" fill="#3a2518"/>
+            <circle cx="31" cy="35" r="2.8" fill="#3a2518"/>
+            <circle cx="32" cy="34" r="1" fill="#ffffff"/>
+            <circle cx="49" cy="35" r="2.8" fill="#3a2518"/>
+            <circle cx="50" cy="34" r="1" fill="#ffffff"/>
+            <path d="M37 49 Q40 57 43 49" fill="#ff7675" stroke="#d63031" stroke-width="1"/>
+            <ellipse cx="40" cy="74" rx="20" ry="16" fill="#f3be7a"/>
+            <ellipse cx="40" cy="72" rx="10" ry="11" fill="#fce4be"/>
+          </svg>
+
+        </div>
+        <button class="blow-candle-btn" onclick="blowCandles()">🕯️💨 Blow out candles!</button>
+      </div>
+
+      <p style="font-size: 0.82rem; font-weight: 700; color: #444; margin-bottom: 2px;">
+        🔒 ENTER PASSWORD TO UNLOCK WISH:
+      </p>
+
+      <div class="pass-container">
+        <span class="pass-icon">🔐</span>
+        <input type="text" id="secretPass" class="pass-input" placeholder="Type password..." autocomplete="on" />
+      </div>
+
+      <div class="btn-group">
+        <button class="main-pink-btn" onclick="verifyPassword()">🎂 MAKE THE WISH! 🚀</button>
+      </div>
+
+      <a class="hint-link" onclick="giveHint()">Need a hint about the password? 🤫</a>
+    </div>
+
+    <!-- STEP 4 (LAST ONE - USES YOUR SECOND LINK IN BACKGROUND) -->
+    <div class="step" id="step4">
+      <input type="file" id="filePicker" accept="image/*" style="display:none" onchange="loadCustomPhoto(event)">
+      
+      <div class="photo-wrapper">
+        <div class="corner-sticker corner-cap">🥳</div>
+        <div class="corner-sticker corner-choc">🍫</div>
+        <div class="corner-sticker corner-icecream">🍦</div>
+        <div class="corner-sticker corner-gift">🎁</div>
+        <div class="corner-sticker corner-balloon">🎈</div>
+        <div class="bestie-photo-frame" onclick="document.getElementById('filePicker').click()">
+          <img id="bestieImg" src="1000219638[1].jpg" alt="Parniti" />
+        </div>
+      </div>
+
+
+      <!-- Surprise Gift Box with Tap-to-Unbox -->
+      <div class="surprise-box-wrapper" onclick="openGiftBox(this)">
+        <span class="gift-box-anim">🎁</span>
+        <div style="font-size:0.78rem; color:#ff3b68; font-weight:800; letter-spacing:0.3px;">Tap gift to unbox! ✨</div>
+      </div>
+
+      <div class="big-stickers-row" style="margin: 2px 0 8px;">
+        <span class="canva-pop-sticker">🧁</span>
+        <span class="canva-pop-sticker del-1">🍫</span>
+        <span class="canva-pop-sticker del-2">🍦</span>
+        <span class="canva-pop-sticker del-3">🥤</span>
+        <span class="canva-pop-sticker del-4">🎉</span>
+      </div>
+
+      <h2>HAPPY 14TH BIRTHDAY, MEOW MEOW! 🎉</h2>
+
+      <p class="subtext" style="color: #555; margin: 4px 0 10px; font-size: 0.9rem;">
+        Happy 14th birthday to the most dramatic, caring, and irreplaceable best friend ever. May this year bring you endless happiness and big wins!
+      </p>
+
+      <div class="tease-note-card">
+        per Ek saal aur buddhe hone ki bahut-bahut badhaai. Waise umar badh rahi hai, lekin dimaag ka software update abhi bhi pending hi lag raha hai. Honestly, tu kitna lucky hai ki tujhe mere jaisa sensible, handsome aur tolerate karne wala dost mila—bhagwan se roz mera shukriya ada kiya kar 😂✨
+      </div>
+
+      <p style="font-weight: 800; color: #ff4772; font-size: 1.05rem; margin-bottom: 14px;">
+        Always got your back, Shubham ❤️
+      </p>
+
+      <div class="btn-group">
+        <button class="main-pink-btn" onclick="fireLotsOfConfetti()">Blast Confetti Storm! 🎊</button>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<script>
+  let audioCtx = null;
+  let isPlaying = false;
+  let musicTimer = null;
+
+  const notes = [
+    { freq: 261.63, dur: 0.35 }, { freq: 261.63, dur: 0.25 }, { freq: 293.66, dur: 0.6 },
+    { freq: 261.63, dur: 0.6 },  { freq: 349.23, dur: 0.6 },  { freq: 329.63, dur: 1.0 },
+    { freq: 0, dur: 0.25 },
+    { freq: 261.63, dur: 0.35 }, { freq: 261.63, dur: 0.25 }, { freq: 293.66, dur: 0.6 },
+    { freq: 261.63, dur: 0.6 },  { freq: 392.00, dur: 0.6 },  { freq: 349.23, dur: 1.0 },
+    { freq: 0, dur: 0.25 },
+    { freq: 261.63, dur: 0.35 }, { freq: 261.63, dur: 0.25 }, { freq: 523.25, dur: 0.6 },
+    { freq: 440.00, dur: 0.6 },  { freq: 349.23, dur: 0.6 },  { freq: 329.63, dur: 0.6 },
+    { freq: 293.66, dur: 0.8 },
+    { freq: 0, dur: 0.25 },
+    { freq: 466.16, dur: 0.35 }, { freq: 466.16, dur: 0.25 }, { freq: 440.00, dur: 0.6 },
+    { freq: 349.23, dur: 0.6 },  { freq: 392.00, dur: 0.6 },  { freq: 349.23, dur: 1.2 }
+  ];
+
+  function playNote(freq, dur, startTime) {
+    if (!freq || freq === 0) return;
+    const osc = audioCtx.createOscillator();
+    const gain = audioCtx.createGain();
+    osc.type = 'triangle';
+    osc.frequency.setValueAtTime(freq, startTime);
+    gain.gain.setValueAtTime(0, startTime);
+    gain.gain.linearRampToValueAtTime(0.22, startTime + 0.05);
+    gain.gain.exponentialRampToValueAtTime(0.001, startTime + dur - 0.03);
+    osc.connect(gain);
+    gain.connect(audioCtx.destination);
+    osc.start(startTime);
+    osc.stop(startTime + dur);
+  }
+
+  function playBirthdayTune() {
+    if (!isPlaying) return;
+    let time = audioCtx.currentTime + 0.1;
+    let totalTime = 0;
+    notes.forEach(n => {
+      playNote(n.freq, n.dur, time);
+      time += n.dur;
+      totalTime += n.dur;
+    });
+    musicTimer = setTimeout(() => {
+      if (isPlaying) playBirthdayTune();
+    }, (totalTime + 1) * 1000);
+  }
+
+  function startAudio() {
+    if (!audioCtx) {
+      audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+    }
+    if (audioCtx.state === 'suspended') {
+      audioCtx.resume();
+    }
+    isPlaying = true;
+    document.getElementById('musicToggleBtn').innerHTML = '🎵';
+    playBirthdayTune();
+  }
+
+  function toggleAudio() {
+    if (isPlaying) {
+      isPlaying = false;
+      if (musicTimer) clearTimeout(musicTimer);
+      document.getElementById('musicToggleBtn').innerHTML = '🔇';
+    } else {
+      startAudio();
+    }
+  }
+
+  function startVerification() {
+    startAudio();
+    startConfettiRain();
+    nextStep(1);
+  }
+
+  // DYNAMIC BACKGROUND SWITCHER
+  function nextStep(stepNumber) {
+    document.querySelectorAll('.step').forEach(step => step.classList.remove('active'));
+    document.getElementById('step' + stepNumber).classList.add('active');
+
+    // Remove previous background classes
+    document.body.classList.remove('bg-step3', 'bg-step4');
+
+    // Add background depending on step
+    if (stepNumber === 3) {
+      document.body.classList.add('bg-step3');
+    } else if (stepNumber === 4) {
+      document.body.classList.add('bg-step4');
+    }
+  }
+
+  function dodgeButton(e, btn) {
+    if (e.cancelable) e.preventDefault();
+    const randomX = (Math.random() > 0.5 ? 1 : -1) * (40 + Math.random() * 60);
+    const randomY = (Math.random() > 0.5 ? 1 : -1) * (20 + Math.random() * 45);
+    btn.style.transform = `translate(${randomX}px, ${randomY}px)`;
+  }
+
+  function blowCandles() {
+    document.querySelectorAll('.flame-el').forEach(flame => {
+      flame.style.opacity = '0';
+      flame.style.transform = 'scale(0)';
+    });
+    ['smoke1', 'smoke2', 'smoke3'].forEach(id => {
+      const el = document.getElementById(id);
+      if (el) el.style.display = 'block';
+    });
+    confetti({ particleCount: 70, spread: 60, origin: { y: 0.6 } });
+    alert("Make a wish! Candles blown out! 🎂✨");
+  }
+
+  function verifyPassword() {
+    nextStep(4);
+    fireLotsOfConfetti();
+    if (!isPlaying) startAudio();
+  }
+
+  function giveHint() {
+    alert("HINT: Type 'parniti' or '14' (or just tap MAKE THE WISH directly!) 💖");
+  }
+
+  function loadCustomPhoto(e) {
+    const file = e.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = function(evt) {
+        document.getElementById('bestieImg').src = evt.target.result;
+      }
+      reader.readAsDataURL(file);
+    }
+  }
+
+  function openGiftBox(wrapper) {
+    wrapper.innerHTML = `<span style="font-size:3.4rem; animation:canvaStickerPop 0.4s ease forwards;">💖</span><div style="font-size:0.8rem; color:#ff3b68; font-weight:800;">Unlimited bestie friendship unlocked! ✨</div>`;
+    fireLotsOfConfetti();
+  }
+
+  const tapEmojis = ['✨', '💖', '🎂', '🎉', '🎈', '🍬', '🧁', '👑'];
+  function spawnTapParticle(e) {
+    const el = document.createElement('div');
+    el.className = 'tap-bubble';
+    el.innerText = tapEmojis[Math.floor(Math.random() * tapEmojis.length)];
+    el.style.left = (e.clientX || (e.touches && e.touches[0].clientX)) + 'px';
+    el.style.top = (e.clientY || (e.touches && e.touches[0].clientY)) + 'px';
+    document.body.appendChild(el);
+    setTimeout(() => el.remove(), 850);
+  }
+
+  function startConfettiRain() {
+    setInterval(() => {
+      confetti({
+        particleCount: 2,
+        angle: 60,
+        spread: 55,
+        origin: { x: 0 },
+        colors: ['#ff8da6', '#ffd166', '#a8dadc']
+      });
+      confetti({
+        particleCount: 2,
+        angle: 120,
+        spread: 55,
+        origin: { x: 1 },
+        colors: ['#ff8da6', '#ffd166', '#a8dadc']
+      });
+    }, 1200);
+  }
+
+  function fireLotsOfConfetti() {
+    confetti({
+      particleCount: 230,
+      spread: 120,
+      origin: { y: 0.55 },
+      colors: ['#ff3b68', '#ffd166', '#70d6ff', '#ff9f1c', '#ffccd8']
+    });
+  }
+</script>
+
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
